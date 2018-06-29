@@ -1,1 +1,3 @@
-# Docs: [https://github.com/Suprya/Suprya](https://github.com/Suprya/Suprya)
+# Docs
+
+Visit https://github.com/Suprya/Suprya
