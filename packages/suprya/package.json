@@ -1,6 +1,6 @@
 {
   "name": "suprya",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Flexible React-based static site generator",
   "license": "MIT",
   "author": {
@@ -15,7 +15,7 @@
     "prerender-loader": "^1.0.0"
   },
   "peerDependencies": {
-    "webpack": "*",
-    "memory-fs": "*"
+    "memory-fs": "*",
+    "webpack": "*"
   }
 }
