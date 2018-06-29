@@ -1,3 +1,4 @@
+const path = require('path');
 const suprya = require('suprya');
 const webpack = require('webpack');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
@@ -10,12 +11,12 @@ module.exports = suprya(
   { routes: ['/', '/contact'], render: isProd },
   {
     mode: env,
-    entry: 'src/index.js',
+    entry: path.resolve('src/index.js'),
     // Don't continue if there are any errors
     bail: isProd,
     devtool: shouldUseSourceMap ? 'source-map' : 'cheap-module-source-map',
     output: {
-      path: 'dist',
+      path: path.resolve('dist'),
       publicPath: 'public'
     },
     optimization: isProd

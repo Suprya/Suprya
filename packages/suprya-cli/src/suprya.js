@@ -17,6 +17,8 @@ process.on('unhandledRejection', err => {
   throw err;
 });
 
+let appName;
+
 program
   .version('1.0.0', '-v, --version')
   .arguments(
@@ -24,22 +26,29 @@ program
     'Specify the app name (used in package.json and for the new directory name)'
   )
   .option('-o, --output-dir [output-dir]', 'Specify the directory where the app will be created')
-  .parse(process.argv);
+  .action(name => {
+    appName = name;
+  });
 
-const appName = program.name || 'suprya-app';
+program.parse(process.argv);
 
-const appPath = paths.resolveAppPath(program.outputDir || appName);
-
-if (!fs.existsSync(appPath)) {
-  fs.mkdirsSync(appPath);
+if (!appName) {
+  console.error(`Missing app name. Please use ${chalk.cyan('suprya <app-name>')}`);
+  return;
 }
 
+const appPath = paths.resolveAppPath(program.outputDir || appName);
 const resolveApp = paths.resolveRelative.bind(appPath);
 
-// Check if `appPath` is empty
-if (fs.readdirSync(appPath).length) {
-  console.error('The new app directory must be empty before creating a Suprya app');
-  return;
+if (fs.existsSync(appPath)) {
+  // Check if `appPath` is empty
+  if (fs.readdirSync(appPath).length) {
+    console.error('The new app directory must be empty before creating a Suprya app');
+    return;
+  }
+} else {
+  // Create `appPath`
+  fs.mkdirsSync(appPath);
 }
 
 const appPackage = {
