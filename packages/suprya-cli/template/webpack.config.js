@@ -11,13 +11,12 @@ module.exports = suprya(
   { routes: ['/', '/contact'], render: isProd },
   {
     mode: env,
-    entry: path.resolve('src/index.js'),
+    entry: './src/index.js',
     // Don't continue if there are any errors
     bail: isProd,
     devtool: shouldUseSourceMap ? 'source-map' : 'cheap-module-source-map',
     output: {
-      path: path.resolve('dist'),
-      publicPath: 'public'
+      path: path.resolve(__dirname, 'dist')
     },
     optimization: isProd
       ? {
@@ -34,7 +33,6 @@ module.exports = suprya(
       rules: [
         {
           test: /\.js$/,
-          include: 'src',
           exclude: /node_modules/,
           use: ['thread-loader', 'babel-loader']
         }

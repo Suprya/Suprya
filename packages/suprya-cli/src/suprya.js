@@ -56,7 +56,7 @@ const appPackage = {
   version: '1.0.0',
   private: true,
   scripts: {
-    start: 'webpack',
+    start: 'webpack-serve --content public',
     build: 'webpack --run-prod --progress',
     test: 'echo "Testing with Jest is coming soon"'
   },

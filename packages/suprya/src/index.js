@@ -1,5 +1,6 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const uglify = require('./uglify');
+const historyApiFallback = require('./historyApiFallback');
 
 const getTemplateForUrl = (url, templatePath) =>
   `!!prerender-loader?${encodeURIComponent(
@@ -22,11 +23,11 @@ const createDefaultPlugin = templatePath =>
 /**
  * @param {string...} config.routes All the routes that will be prerendered using `prerender-loader`
  * @param {boolean} [config.render=true] Whether to enable the prerendering. Only enable this on a production build.
- * @param {templatePath} [config.templatePath="index.html"] webpack require path to the template.
+ * @param {templatePath} [config.templatePath="src/index.html"] webpack require path to the template.
  * @param {*} webpackConfig The webpack config (without HtmlWebpackPlugin plugin instances)
  */
 function suprya(config, webpackConfig) {
-  const { routes, render = true, templatePath = 'index.html' } = config;
+  const { routes, render = true, templatePath = 'src/index.html' } = config;
 
   if (!routes) {
     console.error('No routes to prerender were provided, exiting...');
@@ -45,6 +46,10 @@ function suprya(config, webpackConfig) {
     : createDefaultPlugin(templatePath);
 
   webpackConfig.plugins = (webpackConfig.plugins || []).concat(htmlPlugins);
+
+  if (!render) {
+    webpackConfig.serve = historyApiFallback;
+  }
 
   return webpackConfig;
 }
