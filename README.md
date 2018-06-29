@@ -77,7 +77,7 @@ module.exports = suprya(
 );
 ```
 
-Next, let's create the `Hey` component in `index.js` and add it to the [Reach router](https://reach.tech/router) component:
+Next, let's create the `Hey` component in `src/index.js` and add it to the [Reach router](https://reach.tech/router) component:
 
 ```js
 ...
