@@ -12,6 +12,7 @@ module.exports = {
     'uglifyjs-webpack-plugin',
     'webpack',
     'webpack-command',
-    'webpack-serve'
+    'webpack-serve',
+    'suprya'
   ]
 };
