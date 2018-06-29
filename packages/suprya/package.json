@@ -1,0 +1,21 @@
+{
+  "name": "suprya",
+  "version": "1.0.0",
+  "description": "Flexible React-based static site generator",
+  "license": "MIT",
+  "author": {
+    "name": "Hugo Manrique",
+    "url": "https://hugmanrique.me",
+    "email": "npm@hugmanrique.me"
+  },
+  "main": "src/index.js",
+  "dependencies": {
+    "fs-extra": "^6.0.1",
+    "html-webpack-plugin": "^3.2.0",
+    "prerender-loader": "^1.0.0"
+  },
+  "peerDependencies": {
+    "webpack": "*",
+    "memory-fs": "*"
+  }
+}

@@ -1,0 +1,8 @@
+{
+	"name": "suprya-parent",
+	"private": true,
+	"license": "MIT",
+	"devDependencies": {
+		"lerna": "^2.11.0"
+	}
+}

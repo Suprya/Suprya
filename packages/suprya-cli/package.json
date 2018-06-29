@@ -1,0 +1,23 @@
+{
+  "name": "suprya-cli",
+  "version": "1.0.0",
+  "description": "Creates a Suprya static site",
+  "license": "MIT",
+  "author": {
+    "name": "Hugo Manrique",
+    "url": "https://hugmanrique.me",
+    "email": "npm@hugmanrique.me"
+  },
+  "bin": {
+    "suprya": "./src/suprya.js"
+  },
+  "dependencies": {
+    "chalk": "^2.4.1",
+    "commander": "^2.16.0",
+    "cross-spawn": "^6.0.5",
+    "fs-extra": "^6.0.1"
+  },
+  "engines": {
+    "node": ">= 6.9.0"
+  }
+}
