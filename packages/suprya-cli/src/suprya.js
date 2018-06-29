@@ -29,6 +29,11 @@ program
 const appName = program.name || 'suprya-app';
 
 const appPath = paths.resolveAppPath(program.outputDir || appName);
+
+if (!fs.existsSync(appPath)) {
+  fs.mkdirsSync(appPath);
+}
+
 const resolveApp = paths.resolveRelative.bind(appPath);
 
 // Check if `appPath` is empty
