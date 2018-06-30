@@ -1,6 +1,6 @@
 <h1 align="center">
 	Suprya
-	<a href="https://www.npmjs.org/package/suprya"><img src="https://img.shields.io/npm/v/suprya.svg?style=flat" alt="npm"></a> <a href="https://travis-ci.org/suprya/suprya"><img src="https://travis-ci.org/suprya/suprya.svg?branch=master" alt="Travis CI"></a>
+	<a href="[npm-url]"><img src="[npm]" alt="npm"></a> <a href="[tests-url]"><img src="[tests]" alt="Travis CI"></a>
 </h1>
 <p align="center">The <strong>most flexible</strong> JavaScript static site generator, powered by <a href="https://github.com/webpack/webpack">Webpack</a>.</p>
 
@@ -45,7 +45,7 @@ module.exports = suprya({
 });
 ```
 
-Suprya will take care of adding the entry (`./src/index.js`) and output (defaults to the `dist` directory) options, adding vendor chunk splitting and applying all the plugins for you. But, don't worry, you can still change all these options if you need more flexibility.
+Suprya will take care of adding the entry (`./src/index.js`) and output (defaults to the `dist` directory) options, adding vendor chunk splitting and applying all the plugins for you. But, don't worry; you can still change all these options if you need more flexibility.
 
 Next, we will add the `src/template.html` file which will be the base of all the prerendered outputs (but will also be used in development mode):
 
@@ -117,3 +117,58 @@ export default () => new Promise(resolve => {
 })
 ```
 
+Everything that's left is telling Suprya about what routes you want to prerender (you might not want to render all of them, but it's recommended) by passing a `routes` array to the Suprya config. Go to your `webpack.config.js` file and add the following:
+
+```js
+const suprya = require('suprya');
+
+module.exports = suprya({
+  routes: [
+    {
+      url: '/',
+      title: 'Home Page'
+    },
+    {
+      url: '/contact',
+      title: 'Contact Me'
+    }
+  ],
+  defaultTitle: 'My Awesome App'
+  // ...
+});
+```
+
+Suprya will now prerender `/` and `/contact` on production mode by calling your `prerender.js` default export to produce the `dist/index.html` and `dist/contact/index.html` files.
+
+That's it! You can now run webpack using your preferred CLI. We recommend using the following:
+
+- [`webpack-command`](https://github.com/webpack-contrib/webpack-command) for bundling your files for production. Here are some useful flags and tips:
+  - `--bail` will stop the build on the first error.
+  - `--run-prod` will apply additional optimizations such as UglifyJS on top of Suprya. ([Details](https://github.com/webpack-contrib/webpack-command#cli))
+  - `--progress` will show a nice progress bar.
+  - Don't forget to set `NODE_ENV` to `production` ([Instructions](https://gist.github.com/hugmanrique/8e71844cf20f5f49ff856137b723a7ae))
+- [`webpack-serve`](https://github.com/webpack-contrib/webpack-serve) for hot reloading your app during development. Here are some useful flags and tips:
+  - `--content public/` will statically serve all the files under the `public` directory.
+  - Suprya automatically adds the [History API fallback](https://github.com/webpack-contrib/webpack-serve/blob/master/docs/addons/history-fallback.config.js) to fallback to `index.html`.
+
+## Roadmap
+
+- [ ] Inlining the critical CSS and lazy-loading the rest _(via [Critters](https://github.com/GoogleChromeLabs/critters))_
+- [ ] Configless route detection (might involve library specific plugins)
+- [ ] Automatic template and `prerender.js` creation.
+- [x] Prerender all the routes
+
+## License
+
+Suprya is open source software [licensed as MIT](LICENSE).
+
+[npm]: https://img.shields.io/npm/v/suprya.svg?style=flat
+[npm-url]: https://npmjs.com/package/suprya
+[node]: https://img.shields.io/node/v/suprya.svg
+[node-url]: https://nodejs.org
+[deps]: https://img.shields.io/david/suprya/suprya.svg
+[deps-url]: https://david-dm.org/suprya/suprya
+[tests]: https://img.shields.io/travis/suprya/suprya/master.svg
+[tests-url]: https://travis-ci.org/suprya/suprya
+[license-url]: LICENSE
+[license]: https://img.shields.io/github/license/suprya/suprya.svg
