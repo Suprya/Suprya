@@ -1,6 +1,6 @@
 <h1 align="center">
 	Suprya
-	<a href="[npm-url]"><img src="[npm]" alt="npm"></a> <a href="[tests-url]"><img src="[tests]" alt="Travis CI"></a>
+	<a href="https://www.npmjs.org/package/suprya"><img src="https://img.shields.io/npm/v/suprya.svg?style=flat" alt="npm"></a> <a href="https://travis-ci.org/suprya/suprya"><img src="https://travis-ci.org/suprya/suprya.svg?branch=master" alt="Travis CI"></a>
 </h1>
 <p align="center">The <strong>most flexible</strong> JavaScript static site generator, powered by <a href="https://github.com/webpack/webpack">Webpack</a>.</p>
 
@@ -161,14 +161,3 @@ That's it! You can now run webpack using your preferred CLI. We recommend using 
 ## License
 
 Suprya is open source software [licensed as MIT](LICENSE).
-
-[npm]: https://img.shields.io/npm/v/suprya.svg?style=flat
-[npm-url]: https://npmjs.com/package/suprya
-[node]: https://img.shields.io/node/v/suprya.svg
-[node-url]: https://nodejs.org
-[deps]: https://img.shields.io/david/suprya/suprya.svg
-[deps-url]: https://david-dm.org/suprya/suprya
-[tests]: https://img.shields.io/travis/suprya/suprya/master.svg
-[tests-url]: https://travis-ci.org/suprya/suprya
-[license-url]: LICENSE
-[license]: https://img.shields.io/github/license/suprya/suprya.svg
