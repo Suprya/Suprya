@@ -1,0 +1,67 @@
+{
+  "name": "suprya",
+  "version": "0.0.1",
+  "description": "A flexible JS static site generator for Webpack.",
+  "main": "dist/suprya.js",
+  "source": "dist/index.js",
+  "license": "MIT",
+  "author": {
+    "name": "Hugo Manrique",
+    "url": "https://hugmanrique.me",
+    "email": "npm@hugmanrique.me"
+  },
+  "keywords": [
+    "static-site-generator",
+    "webpack plugin",
+    "performance",
+    "first contentful paint"
+  ],
+  "repository": "suprya/suprya",
+  "scripts": {
+    "babel": "babel --plugins=@babel/plugin-proposal-object-rest-spread --no-babelrc -d babel --ignore '*.test.js' src",
+    "build": "npm run -s babel && microbundle babel -f cjs --external all",
+    "prebuild": "rm -rf babel dist && mkdir babel dist",
+    "test": "jest --coverage"
+  },
+  "engines": {
+    "node": ">= 6.9.0"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ],
+    "plugins": [
+      "@babel/plugin-proposal-object-rest-spread"
+    ]
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coverageReporters": [
+      "text"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*"
+    ],
+    "watchPathIgnorePatterns": [
+      "node_modules",
+      "dist"
+    ]
+  },
+  "peerDependencies": {
+    "webpack": "^4.0.0"
+  },
+  "dependencies": {
+    "html-webpack-plugin": "^3.2.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.0.0-beta.51",
+    "@babel/core": "^7.0.0-beta.51",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0-beta.51",
+    "@babel/preset-env": "^7.0.0-beta.51",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^23.2.0",
+    "jest": "^23.2.0",
+    "microbundle": "^0.4.4",
+    "webpack": "^4.14.0"
+  }
+}

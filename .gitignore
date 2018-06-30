@@ -4,6 +4,7 @@ node_modules/
 *.log
 *.cache
 
+babel
 dist
 .eslintcache
 coverage

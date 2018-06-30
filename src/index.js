@@ -1,0 +1,107 @@
+import path from 'path';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+
+import { getCwd, getPrerenderSettings, pushArray } from './util';
+
+const OUTPUT_PATH = 'dist';
+const PUBLIC_PATH = 'public';
+
+export default function Suprya(options) {
+  const {
+    disabled,
+    routes,
+    templatePath = 'src/template.html',
+    defaultTitle = 'Suprya App',
+    ...webpackConfig
+  } = options;
+
+  if (disabled === true) {
+    return webpackConfig;
+  }
+
+  const isProduction = webpackConfig.mode === 'production';
+  const basePath = getCwd();
+
+  addWebpackDefaults({ webpackConfig, basePath, isProduction });
+
+  addHtmlPlugins({
+    plugins: webpackConfig.plugins,
+    isProduction,
+    basePath,
+    routes,
+    template: templatePath,
+    defaultTitle
+  });
+
+  // Return optimized webpack config
+  return webpackConfig;
+}
+
+function addWebpackDefaults({ config, basePath, isProduction }) {
+  // Set the default entry if not set
+  config.entry = config.entry || './src/index.js';
+
+  // Set default output options
+  config.output = {
+    path: path.resolve(basePath, OUTPUT_PATH),
+    filename: isProduction ? '[name].[chunkhash].js' : '[name].js',
+    publicPath: '/',
+    ...config.output
+  };
+
+  if (!config.optimization) {
+    config.optimization = {
+      // Automatically split vendor and commons
+      // https://twitter.com/wSokra/status/969633336732905474
+      splitChunks: {
+        chunks: 'all'
+      },
+      // Keep the runtime chunk seperated to enable long term caching
+      // https://twitter.com/wSokra/status/969679223278505985
+      runtimeChunk: true
+    };
+  }
+
+  config.devServer = {
+    // Serve physical files from the public directory
+    contentBase: path.resolve(basePath, PUBLIC_PATH)
+  };
+}
+
+function addHtmlPlugins({ plugins, isProduction, basePath, routes, template, defaultTitle }) {
+  // Serve default index.html when not in production
+  if (!isProduction) {
+    plugins.push(
+      new HtmlWebpackPlugin({
+        template
+      })
+    );
+
+    return;
+  }
+
+  const htmlPrerenderConfig = values => {
+    const { url, title } = values;
+    const settings = getPrerenderSettings(url);
+
+    return Object.assign(values, {
+      filename: path.resolve(basePath, url.substring(1), 'index.html'),
+      template: `!!prerender-loader?${settings}!${template}`,
+      // Opinionated minify options
+      // https://github.com/kangax/html-minifier#options-quick-reference
+      minify: {
+        collapseWhitespace: true,
+        removeScriptTypeAttributes: true,
+        removeRedundantAttributes: true,
+        removeStyleLinkTypeAttributes: true,
+        removeComments: true
+      },
+      compile: true,
+      title: title || defaultTitle
+    });
+  };
+
+  const htmlPlugins = routes.map(htmlPrerenderConfig).map(config => new HtmlWebpackPlugin(config));
+
+  pushArray(plugins, htmlPlugins);
+}
