@@ -1,6 +1,6 @@
 <h1 align="center">
 	Suprya
-	<a href="https://www.npmjs.org/package/suprya"><img src="https://img.shields.io/npm/v/suprya.svg?style=flat" alt="npm"></a> <a href="https://travis-ci.org/suprya/suprya"><img src="https://travis-ci.org/suprya/suprya.svg?branch=master" alt="Travis CI"></a>
+	<a href="https://www.npmjs.org/package/suprya"><img src="https://img.shields.io/npm/v/suprya.svg?style=flat" alt="npm"></a> <a href="https://travis-ci.org/Suprya/Suprya"><img src="https://travis-ci.org/Suprya/Suprya.svg?branch=master" alt="Travis CI"></a>
 </h1>
 <p align="center">The <strong>most flexible</strong> JavaScript static site generator, powered by <a href="https://github.com/webpack/webpack">Webpack</a>.</p>
 
