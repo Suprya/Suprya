@@ -1,7 +1,9 @@
+/* eslint-disable no-use-before-define */
+
 import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 
-import { getCwd, getPrerenderSettings, pushArray } from './util';
+import { getCwd, getPrerenderSettings } from './util';
 
 const OUTPUT_PATH = 'dist';
 const PUBLIC_PATH = 'public';
@@ -94,7 +96,8 @@ function addHtmlPlugins({ plugins, isProduction, basePath, routes, template, def
     const { url, title } = values;
     const settings = getPrerenderSettings(url);
 
-    return Object.assign(values, {
+    return {
+      ...values,
       filename: path.resolve(basePath, url.substring(1), 'index.html'),
       template: `!!prerender-loader?${settings}!${template}`,
       // Opinionated minify options
@@ -108,10 +111,10 @@ function addHtmlPlugins({ plugins, isProduction, basePath, routes, template, def
       },
       compile: true,
       title: title || defaultTitle
-    });
+    };
   };
 
   const htmlPlugins = routes.map(htmlPrerenderConfig).map(config => new HtmlWebpackPlugin(config));
 
-  pushArray(plugins, htmlPlugins);
+  plugins.push(...htmlPlugins);
 }
