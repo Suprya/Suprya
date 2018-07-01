@@ -37,7 +37,7 @@ export default function Suprya(options) {
   addHtmlPlugins({
     plugins: webpackConfig.plugins,
     isProduction,
-    basePath,
+    outputPath: path.resolve(basePath, OUTPUT_PATH),
     routes,
     template: templatePath,
     defaultTitle
@@ -100,7 +100,7 @@ function addWebpackDefaults({ config, basePath, isProduction, shouldUseSourceMap
   }
 }
 
-function addHtmlPlugins({ plugins, isProduction, basePath, routes, template, defaultTitle }) {
+function addHtmlPlugins({ plugins, isProduction, outputPath, routes, template, defaultTitle }) {
   // Serve default index.html when not in production
   if (!isProduction) {
     plugins.push(
@@ -118,7 +118,7 @@ function addHtmlPlugins({ plugins, isProduction, basePath, routes, template, def
 
     return {
       ...values,
-      filename: path.resolve(basePath, url.substring(1), 'index.html'),
+      filename: path.resolve(outputPath, url.substring(1), 'index.html'),
       template: `!!prerender-loader?${settings}!${template}`,
       // Opinionated minify options
       // https://github.com/kangax/html-minifier#options-quick-reference
