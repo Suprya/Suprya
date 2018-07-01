@@ -1,7 +1,6 @@
 /* eslint-disable no-use-before-define */
 
 import path from 'path';
-import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 import historyApiFallback from './historyApiFallback';
@@ -83,10 +82,6 @@ function addWebpackDefaults({ config, basePath, isProduction, shouldUseSourceMap
         runtimeChunk: true
       };
     }
-
-    // 'Hoist' or concatenate the scope of all the modules
-    // https://webpack.js.org/plugins/module-concatenation-plugin/
-    config.plugins.push(new webpack.optimize.ModuleConcatenationPlugin());
   } else {
     const publicDir = path.resolve(basePath, PUBLIC_PATH);
 
