@@ -82,6 +82,8 @@ import App from './components/App';
 export default () => renderToString(<App />);
 ```
 
+You can also take a look at the example React app on [`examples/react`](examples/react). It has a README which explains things related to React in greater detail.
+
 ### Preact app
 
 TODO
