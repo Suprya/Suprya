@@ -1,8 +1,10 @@
 /* eslint-disable no-use-before-define */
 
 import path from 'path';
+import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 
+import historyApiFallback from './historyApiFallback';
 import { getCwd, getPrerenderSettings } from './util';
 
 const OUTPUT_PATH = 'dist';
@@ -78,10 +80,21 @@ function addWebpackDefaults({ config, basePath, isProduction, shouldUseSourceMap
     config.plugins = [];
   }
 
-  config.devServer = {
+  if (isProduction) {
+    // 'Hoist' or concatenate the scope of all the modules
+    // https://webpack.js.org/plugins/module-concatenation-plugin/
+    config.plugins.push(new webpack.optimize.ModuleConcatenationPlugin());
+  } else {
+    const publicDir = path.resolve(basePath, PUBLIC_PATH);
+
     // Serve physical files from the public directory
-    contentBase: path.resolve(basePath, PUBLIC_PATH)
-  };
+    config.devServer = {
+      contentBase: publicDir
+    };
+
+    // Apply the webpack-serve historyApiFallback addon
+    config.serve = historyApiFallback(publicDir);
+  }
 }
 
 function addHtmlPlugins({ plugins, isProduction, basePath, routes, template, defaultTitle }) {
