@@ -44,4 +44,4 @@ This file will get run under a [JSDOM](https://github.com/jsdom/jsdom) instance 
 
 This is our main App component which renders a [Reach Router](https://reach.tech/router) with two routes (the `Home` and the `Contact` components). Please note that the `path` prop of these children must match the same one specified on the `webpack.config.js` or the contents will not get rendered.
 
-Dynamic routes are not supported, but you can still use them as long as your server always fallbacks to the `index.html`, which will perform a render from zero instead of using the prerendered content.
+Dynamic routes are not supported, but you can still use them as long as your server always fallbacks to the `index.html`, which will perform a render from zero instead of hydrating the `App` component.
