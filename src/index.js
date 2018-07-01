@@ -12,6 +12,7 @@ export default function Suprya(options) {
     routes,
     templatePath = 'src/template.html',
     defaultTitle = 'Suprya App',
+    shouldUseSourceMap,
     ...webpackConfig
   } = options;
 
@@ -22,7 +23,12 @@ export default function Suprya(options) {
   const isProduction = webpackConfig.mode === 'production';
   const basePath = getCwd();
 
-  addWebpackDefaults({ webpackConfig, basePath, isProduction });
+  addWebpackDefaults({
+    webpackConfig,
+    basePath,
+    isProduction,
+    shouldUseSourceMap: shouldUseSourceMap || isProduction
+  });
 
   addHtmlPlugins({
     plugins: webpackConfig.plugins,
@@ -37,7 +43,7 @@ export default function Suprya(options) {
   return webpackConfig;
 }
 
-function addWebpackDefaults({ config, basePath, isProduction }) {
+function addWebpackDefaults({ config, basePath, isProduction, shouldUseSourceMap }) {
   // Set the default entry if not set
   config.entry = config.entry || './src/index.js';
 
@@ -48,6 +54,10 @@ function addWebpackDefaults({ config, basePath, isProduction }) {
     publicPath: '/',
     ...config.output
   };
+
+  if (!config.devtool) {
+    config.devtool = shouldUseSourceMap ? 'source-map' : 'cheap-module-source-map';
+  }
 
   if (!config.optimization) {
     config.optimization = {
