@@ -23,6 +23,9 @@
     "prebuild": "rm -rf babel dist && mkdir babel dist",
     "test": "jest --coverage"
   },
+  "files": [
+    "dist/"
+  ],
   "engines": {
     "node": ">= 6.9.0"
   },
