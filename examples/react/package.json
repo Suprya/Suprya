@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "webpack-serve --content public",
-    "build": "cross-env NODE_ENV=production webpack --bail --progress",
+    "build": "cross-env NODE_ENV=production webpack --run-prod --bail --progress",
     "prebuild": "rm -rf dist && mkdir dist"
   },
   "dependencies": {
