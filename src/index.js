@@ -26,7 +26,7 @@ export default function Suprya(options) {
   const basePath = getCwd();
 
   addWebpackDefaults({
-    webpackConfig,
+    config: webpackConfig,
     basePath,
     isProduction,
     shouldUseSourceMap: shouldUseSourceMap || isProduction
@@ -72,6 +72,10 @@ function addWebpackDefaults({ config, basePath, isProduction, shouldUseSourceMap
       // https://twitter.com/wSokra/status/969679223278505985
       runtimeChunk: true
     };
+  }
+
+  if (!config.plugins) {
+    config.plugins = [];
   }
 
   config.devServer = {
