@@ -149,8 +149,7 @@ That's it! You can now run webpack using your preferred CLI. We recommend using 
   - `--run-prod` will apply additional optimizations such as UglifyJS on top of Suprya. ([Details](https://github.com/webpack-contrib/webpack-command#cli))
   - `--progress` will show a nice progress bar.
   - Don't forget to set `NODE_ENV` to `production` ([Instructions](https://gist.github.com/hugmanrique/8e71844cf20f5f49ff856137b723a7ae))
-- [`webpack-serve`](https://github.com/webpack-contrib/webpack-serve) for hot reloading your app during development. Here are some useful flags and tips:
-  - `--content public/` will statically serve all the files under the `public` directory.
+- [`webpack-serve`](https://github.com/webpack-contrib/webpack-serve) for hot reloading your app during development. Here are some useful tips:
   - Suprya automatically adds the [History API fallback](https://github.com/webpack-contrib/webpack-serve/blob/master/docs/addons/history-fallback.config.js) to fallback to `index.html`.
 
 ## 🔨 Options
