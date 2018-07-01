@@ -6,14 +6,14 @@
 
 ---
 
-## Features
+## ✨ Features
 
 - Bundle your app using only a `package.json` and `webpack.config.js`
 - Opinionated Webpack defaults for both development and production modes
 - Prerenders all your app routes _(via [prerender-loader](https://github.com/GoogleChromeLabs/prerender-loader/))_
 - Everything is configurable (and uses technologies you already know)
 
-## Installation
+## 🔧 Installation
 
 Install suprya using [`npm`](https://www.npmjs.com/):
 
@@ -23,7 +23,7 @@ npm i -D suprya
 
 The minimum supported Node version is `v6.9.0`
 
-## Usage
+## 📦 Usage
 
 Suprya takes your Webpack config as an input and adds its own opinionated config values for the ultimate developer experience. To start, open your `webpack.config.js` and wrap your exported config with the `suprya()` function:
 
@@ -151,41 +151,63 @@ That's it! You can now run webpack using your preferred CLI. We recommend using 
   - `--content public/` will statically serve all the files under the `public` directory.
   - Suprya automatically adds the [History API fallback](https://github.com/webpack-contrib/webpack-serve/blob/master/docs/addons/history-fallback.config.js) to fallback to `index.html`.
 
-## Opinionated Webpack options
+## 🔨 Options
+
+Suprya shares the same configuration object as Webpack, but will remove all its values from the final Webpack config e.g., in order to pass the `disabled` option you would add the `disabled` key to your `webpack.config.js` file as follows:
+
+
+```js
+const suprya = require('suprya');
+
+module.exports = suprya({
+  disabled: true,
+  // Other Webpack or Suprya options
+});
+```
+
+| Option               | Type                          | Default                 | Description                                                                                                                                                                                         |
+| -------------------- | ----------------------------- | ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `routes`             | `[{ url, title, meta, ... }]` | `undefined`             | Which routes you want to prerender. Each route has a required `url` key, an optional `title` and additional [html-webpack-plugin](https://github.com/jantimon/html-webpack-plugin#options) options. |
+| `defaultTitle`       | `string`                      | `"Suprya App"`          | The default title used for pages which don't have specified one.                                                                                                                                    |
+| `templatePath`       | `string`                      | `src/template.html`     | The location of the HTML template used for prerendering (also used in `development` mode).                                                                                                          |
+| `shouldUseSourceMap` | `boolean`                     | `mode === 'production'` | Whether to generate production or development source maps. You can also add the Webpack's `devtool` option which will override Suprya's choice.                                                     |
+| `disabled`           | `boolean`                     | `false`                 | Disables Suprya entirely (will return the same passed config). Useful for debugging.                                                                                                                |
+
+## ✅ Opinionated Webpack options
 
 Suprya is an opinionated static-site generator, but stands to be as flexible as possible, so any settings specified below can be overrided (by setting your preferred value on your `webpack.config.js`):
 
 Suprya applies these Webpack options on `production` mode:
 
-| Option                                                               | Value                                                                                                   | Description                                                                         |
-| -------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| [`entry`](https://webpack.js.org/concepts/#entry)                    | `./src/index.js`                                                                                        | Which module Webpack will use to begin building out its internal _dependency graph_ |
-| [`output`](https://webpack.js.org/configuration/output/)             | <pre>{<br>  path: '[cwd]/dist',<br>  filename: '[name].[chunkhash].js',<br>  publicPath: '/'<br>}</pre> | Directory where the compiled files will be written                                  |
-| [`devtool`](https://webpack.js.org/configuration/devtool/)           | `source-map`                                                                                            | Place source maps on a different file (ending in `.js.map`)                         |
-| [`optimization`](https://webpack.js.org/configuration/optimization/) | <pre>{<br>  splitChunks: {<br>    chunks: 'all'<br>  },<br>  runtimeChunk: true<br>}</pre>              | Splits vendor dependencies and keeps the runtime chunk separated                    |
+| Option                                                               | Value                                                                                                   | Description                                                                          |
+| -------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| [`entry`](https://webpack.js.org/concepts/#entry)                    | `./src/index.js`                                                                                        | Which module Webpack will use to begin building out its internal _dependency graph_. |
+| [`output`](https://webpack.js.org/configuration/output/)             | <pre>{<br>  path: '[cwd]/dist',<br>  filename: '[name].[chunkhash].js',<br>  publicPath: '/'<br>}</pre> | Directory where the compiled files will be written.                                  |
+| [`devtool`](https://webpack.js.org/configuration/devtool/)           | `source-map`                                                                                            | Place source maps on a different file (ending in `.js.map`).                         |
+| [`optimization`](https://webpack.js.org/configuration/optimization/) | <pre>{<br>  splitChunks: {<br>    chunks: 'all'<br>  },<br>  runtimeChunk: true<br>}</pre>              | Splits vendor dependencies and keeps the runtime chunk separated.                    |
 
 Suprya also applies these Webpack options on `development` mode:
 
 
-| Option                                                                    | Value                                                                                                   | Description                                                                                                |
-| ------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
-| [`entry`](https://webpack.js.org/concepts/#entry)                         | `./src/index.js`                                                                                        | Which module Webpack will use to begin building out its internal _dependency graph_                        |
-| [`output`](https://webpack.js.org/configuration/output/)                  | <pre>{<br>  path: '[cwd]/dist',<br>  filename: '[name].[chunkhash].js',<br>  publicPath: '/'<br>}</pre> | Directory where the compiled files will be written                                                         |
-| [`devtool`](https://webpack.js.org/configuration/devtool/)                | `cheap-module-source-map`                                                                               | Generate fast (but bigger) source maps                                                                     |
-| [`devServer`](https://webpack.js.org/configuration/dev-server/#devserver) | <pre>{<br>  contentBase: '[cwd]/dist'<br>}</pre>                                                        | Serve static assets from the `public` directory.                                                           |
-| [`serve`](https://github.com/webpack-contrib/webpack-serve)               | [`[see src/historyApiFallback.js]`](src/historyApiFallback.js)                                          | Applies the [`historyApiFallback`](https://github.com/webpack-contrib/webpack-serve#add-on-features) addon |
+| Option                                                                    | Value                                                                                                   | Description                                                                                                 |
+| ------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| [`entry`](https://webpack.js.org/concepts/#entry)                         | `./src/index.js`                                                                                        | Which module Webpack will use to begin building out its internal _dependency graph_.                        |
+| [`output`](https://webpack.js.org/configuration/output/)                  | <pre>{<br>  path: '[cwd]/dist',<br>  filename: '[name].[chunkhash].js',<br>  publicPath: '/'<br>}</pre> | Directory where the compiled files will be written.                                                         |
+| [`devtool`](https://webpack.js.org/configuration/devtool/)                | `cheap-module-source-map`                                                                               | Generate fast (but bigger) source maps.                                                                     |
+| [`devServer`](https://webpack.js.org/configuration/dev-server/#devserver) | <pre>{<br>  contentBase: '[cwd]/dist'<br>}</pre>                                                        | Serve static assets from the `public` directory.                                                            |
+| [`serve`](https://github.com/webpack-contrib/webpack-serve)               | [`[see src/historyApiFallback.js]`](src/historyApiFallback.js)                                          | Applies the [`historyApiFallback`](https://github.com/webpack-contrib/webpack-serve#add-on-features) addon. |
 
 Additionally, Suprya adds an `HtmlWebpackPlugin` instance in development mode and multiple ones (to make prerendering possible) on production mode. That means you don't need to add the [HtmlWebpackPlugin](https://github.com/jantimon/html-webpack-plugin) to your `webpack.config.js` file.
 
-_Note: `[cwd]` refers to the current working directory i.e. the directory where you run the `webpack` CLI from_
+_Note: `[cwd]` refers to the current working directory i.e. the directory where you run the `webpack` CLI from._
 
-## Roadmap
+## 🛣 Roadmap
 
 - [ ] Inlining the critical CSS and lazy-loading the rest _(via [Critters](https://github.com/GoogleChromeLabs/critters))_
 - [ ] Configless route detection (might involve library specific plugins)
 - [ ] Automatic template and `prerender.js` creation.
 - [x] Prerender all the routes
 
-## License
+## 🥂 License
 
 Suprya is open source software [licensed as MIT](LICENSE).
