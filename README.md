@@ -157,23 +157,23 @@ Suprya is an opinionated static-site generator, but stands to be as flexible as 
 
 Suprya applies these Webpack options on `production` mode:
 
-| Option                                            | Value                                                                                                  | Description                                                                         |
-| ------------------------------------------------- | ------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------- |
-| [`entry`](https://webpack.js.org/concepts/#entry) | `./src/index.js`                                                                                       | Which module Webpack will use to begin building out its internal _dependency graph_ |
-| `output`                                          | <pre>{<br>  path: '[cwd]/dist',<br>  filename: '[name].[chunkhash].js',<br> publicPath: '/'<br>}</pre> | Directory where the compiled files will be written                                  |
-| `devtool`                                         | `source-map`                                                                                           | Place source maps on a different file (ending in `.js.map`)                         |
-| `optimization`                                    | <pre>{<br>  splitChunks: {<br>    chunks: 'all'<br>  },<br>  runtimeChunk: true<br>}</pre>             | Splits vendor dependencies and keeps the runtime chunk separated                    |
+| Option                                            | Value                                                                                                   | Description                                                                         |
+| ------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| [`entry`](https://webpack.js.org/concepts/#entry) | `./src/index.js`                                                                                        | Which module Webpack will use to begin building out its internal _dependency graph_ |
+| `output`                                          | <pre>{<br>  path: '[cwd]/dist',<br>  filename: '[name].[chunkhash].js',<br>  publicPath: '/'<br>}</pre> | Directory where the compiled files will be written                                  |
+| `devtool`                                         | `source-map`                                                                                            | Place source maps on a different file (ending in `.js.map`)                         |
+| `optimization`                                    | <pre>{<br>  splitChunks: {<br>    chunks: 'all'<br>  },<br>  runtimeChunk: true<br>}</pre>              | Splits vendor dependencies and keeps the runtime chunk separated                    |
 
 Suprya also applies these Webpack options on `development` mode:
 
 
-| Option                                            | Value                                                                                                  | Description                                                                                                |
-| ------------------------------------------------- | ------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------- |
-| [`entry`](https://webpack.js.org/concepts/#entry) | `./src/index.js`                                                                                       | Which module Webpack will use to begin building out its internal _dependency graph_                        |
-| `output`                                          | <pre>{<br>  path: '[cwd]/dist',<br>  filename: '[name].[chunkhash].js',<br> publicPath: '/'<br>}</pre> | Directory where the compiled files will be written                                                         |
-| `devtool`                                         | `cheap-module-source-map`                                                                              | Generate fast (but bigger) source maps                                                                     |
-| `devServer`                                       | <pre>{<br>  contentBase: '[cwd]/dist'<br>}</pre>                                                       | Serve static assets from the `public` directory.                                                           |
-| `serve`                                           | [`[see src/historyApiFallback.js]`](src/historyApiFallback.js)                                         | Applies the [`historyApiFallback`](https://github.com/webpack-contrib/webpack-serve#add-on-features) addon |
+| Option                                            | Value                                                                                                   | Description                                                                                                |
+| ------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| [`entry`](https://webpack.js.org/concepts/#entry) | `./src/index.js`                                                                                        | Which module Webpack will use to begin building out its internal _dependency graph_                        |
+| `output`                                          | <pre>{<br>  path: '[cwd]/dist',<br>  filename: '[name].[chunkhash].js',<br>  publicPath: '/'<br>}</pre> | Directory where the compiled files will be written                                                         |
+| `devtool`                                         | `cheap-module-source-map`                                                                               | Generate fast (but bigger) source maps                                                                     |
+| `devServer`                                       | <pre>{<br>  contentBase: '[cwd]/dist'<br>}</pre>                                                        | Serve static assets from the `public` directory.                                                           |
+| `serve`                                           | [`[see src/historyApiFallback.js]`](src/historyApiFallback.js)                                          | Applies the [`historyApiFallback`](https://github.com/webpack-contrib/webpack-serve#add-on-features) addon |
 
 Additionally, Suprya adds an `HtmlWebpackPlugin` instance in development mode and multiple ones (to make prerendering possible) on production mode. That means you don't need to add the [HtmlWebpackPlugin](https://github.com/jantimon/html-webpack-plugin) to your `webpack.config.js` file.
 
