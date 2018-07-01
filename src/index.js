@@ -60,6 +60,9 @@ function addWebpackDefaults({ config, basePath, isProduction, shouldUseSourceMap
   };
 
   if (!config.devtool) {
+    // Generate sourcemaps. Keeps original source if `shouldUseSourceMap` and
+    // only keeps the lines if not.
+    // https://webpack.js.org/configuration/devtool/
     config.devtool = shouldUseSourceMap ? 'source-map' : 'cheap-module-source-map';
   }
 
