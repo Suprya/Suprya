@@ -24,7 +24,7 @@ There are some special properties:
 
 - The `routes` array tells Suprya which routes you want to prerender using the [prerender-loader](https://github.com/GoogleChromeLabs/prerender-loader) library. Each route requires the `url` property (which will be accesible on the `prerender.js` file on `window.location` and similar APIs), an optional title and other [`html-webpack-plugin` options](https://github.com/jantimon/html-webpack-plugin#options) such as `meta` (which we used to set the description of the Home page).
 - `defaultTitle` will be used as a fallback in case a route doesn't have a `title` key. It will get injected on your `template.html` file under the `<head>` element with an standard `<title>` tag.
-- `mode` tells webpack and Suprya to use their built-in optimizations accordingly. Webpack enables [these options](https://webpack.js.org/concepts/mode/) while Suprya adds the following: [_`TODO Add link to readme file explaining all the optimizations`_](#).
+- `mode` tells webpack and Suprya to use their built-in optimizations accordingly. Webpack enables [these options](https://webpack.js.org/concepts/mode/) while Suprya adds [these](../../README.md#opinionated-webpack-options) (which are all overrideable).
 
 You can then use any [standard Webpack config options](https://webpack.js.org/configuration/) such as `module.rules`, `optimization` or `plugins`.
 

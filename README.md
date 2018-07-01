@@ -151,6 +151,34 @@ That's it! You can now run webpack using your preferred CLI. We recommend using 
   - `--content public/` will statically serve all the files under the `public` directory.
   - Suprya automatically adds the [History API fallback](https://github.com/webpack-contrib/webpack-serve/blob/master/docs/addons/history-fallback.config.js) to fallback to `index.html`.
 
+## Opinionated Webpack options
+
+Suprya is an opinionated static-site generator, but stands to be as flexible as possible, so any settings specified below can be overrided (by setting your preferred value on your `webpack.config.js`):
+
+Suprya applies these Webpack options on `production` mode:
+
+| Option                                            | Value                                                                                          | Description                                                                         |
+| ------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| [`entry`](https://webpack.js.org/concepts/#entry) | `./src/index.js`                                                                               | Which module Webpack will use to begin building out its internal _dependency graph_ |
+| `output`                                          | `{<br>  path: '[cwd]/dist',<br>  filename: '[name].[chunkhash].js',<br>  publicPath: '/'<br>}` | Directory where the compiled files will be written                                  |
+| `devtool`                                         | `source-map`                                                                                   | Place source maps on a different file (ending in `.js.map`)                         |
+| `optimization`                                    | `{<br>  splitChunks: {<br>    chunks: 'all'<br>  },<br>  runtimeChunk: true<br>}`              | Splits vendor dependencies and keeps the runtime chunk separated                    |
+
+Suprya also applies these Webpack options on `development` mode:
+
+
+| Option                                            | Value                                                                                          | Description                                                                                                |
+| ------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| [`entry`](https://webpack.js.org/concepts/#entry) | `./src/index.js`                                                                               | Which module Webpack will use to begin building out its internal _dependency graph_                        |
+| `output`                                          | `{<br>  path: '[cwd]/dist',<br>  filename: '[name].[chunkhash].js',<br>  publicPath: '/'<br>}` | Directory where the compiled files will be written                                                         |
+| `devtool`                                         | `cheap-module-source-map`                                                                      | Generate fast (but bigger) source maps                                                                     |
+| `devServer`                                       | `{<br>  contentBase: '[cwd]/dist'<br>}`                                                        | Serve static assets from the `public` directory.                                                           |
+| `serve`                                           | [`[see src/historyApiFallback.js]`](src/historyApiFallback.js)                                 | Applies the [`historyApiFallback`](https://github.com/webpack-contrib/webpack-serve#add-on-features) addon |
+
+Additionally, Suprya adds an `HtmlWebpackPlugin` instance in development mode and multiple ones (to make prerendering possible) on production mode. That means you don't need to add the [HtmlWebpackPlugin](https://github.com/jantimon/html-webpack-plugin) to your `webpack.config.js` file.
+
+_Note: `[cwd]` refers to the current working directory i.e. the directory where you run the `webpack` CLI from_
+
 ## Roadmap
 
 - [ ] Inlining the critical CSS and lazy-loading the rest _(via [Critters](https://github.com/GoogleChromeLabs/critters))_
