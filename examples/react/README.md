@@ -38,7 +38,7 @@ This is the file which will be the base of all the prerendered outputs and the d
 
 ## `src/prerender.js`
 
-This file will get run under a [JSDOM](https://github.com/jsdom/jsdom) instance which supports most of the DOM and HTML standards thanks to [prerender-loader](https://github.com/GoogleChromeLabs/prerender-loader/). This file should look familiar to a server-side rendering engine, as we use the [`ReactDOMServer.renderToString`](https://reactjs.org/docs/react-dom-server.html#rendertostring) API which returns an HTML string which wie export. You can read about exporting Promises or async functions (which gives you more flexibility) on the [README](../../README.md) file.
+This file will get run under a [JSDOM](https://github.com/jsdom/jsdom) instance which supports most of the DOM and HTML standards thanks to [prerender-loader](https://github.com/GoogleChromeLabs/prerender-loader/). This file should look familiar to a server-side rendering engine, as we use the [`ReactDOMServer.renderToString`](https://reactjs.org/docs/react-dom-server.html#rendertostring) API which returns an HTML string which we export. You can read about exporting Promises or async functions (which gives you more flexibility) on the [README](../../README.md) file.
 
 ## `src/components/App.js`
 

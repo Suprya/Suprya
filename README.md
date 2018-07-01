@@ -112,7 +112,7 @@ export default () => new Promise(resolve => {
     commit();
   }
 
-  // Rnder into <body> using normal client-side rendering:
+  // Render into <body> using normal client-side rendering:
   render(<App />, document.body);
 })
 ```
