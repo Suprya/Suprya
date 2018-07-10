@@ -57,7 +57,7 @@
     "connect-history-api-fallback": "^1.5.0",
     "html-webpack-plugin": "^3.2.0",
     "koa-connect": "^2.0.1",
-    "prerender-loader": "^1.0.0"
+    "prerender-loader": "hugmanrique/prerender-loader"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0-beta.51",
